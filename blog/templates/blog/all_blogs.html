@@ -1,0 +1,24 @@
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="jumbotron text-center" style="background: url({% static 'project/a.png' %})">
+  <h1 class="text-secondary">Blog</h1>
+  <p class="text-secondary">Bob has written {{ latestid }} blog{{ latestid|pluralize }}</p> 
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for blog in blogs %}
+    <div class="col-sm-6">    
+      <a href="{% url 'blog:detail' blog.id %}"><h3>{{blog.title}}</h3></a>
+      <h6>{{ blog.date|date:'M d Y' }}</h6>
+      <p>{{ blog.post|striptags|truncatechars:250 }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <br>
+</div>
+
+{% endblock %}
